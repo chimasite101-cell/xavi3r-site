@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X3R Labs — Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #00c8ff;
+  --blue-line: rgba(0,200,255,0.1);
+  --blue-dim: rgba(0,200,255,0.06);
+  --bg: #03080f;
+  --bg2: #060d18;
+  --bg3: #0a1525;
+  --card: rgba(10,21,37,0.85);
+  --text: #e8f4f8;
+  --muted: #4a6a80;
+  --muted2: rgba(232,244,248,0.5);
+  --font: 'Space Grotesk', sans-serif;
+  --radius: 14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:hidden;cursor:none;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(0,200,255,.05),transparent 60%);pointer-events:none;z-index:0;}
+
+.cur{width:7px;height:7px;background:var(--blue);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:screen;}
+.cur-r{width:26px;height:26px;border:1px solid rgba(0,200,255,.3);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;}
+a,button{cursor:none;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;background:rgba(3,8,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--blue-line);}
+.nav-logo{font-size:1rem;font-weight:700;letter-spacing:.06em;color:var(--blue);text-decoration:none;}
+.nav-back{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.nav-back:hover{color:var(--blue);}
+.nav-cta{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--blue);border:none;padding:9px 20px;border-radius:8px;text-decoration:none;}
+
+/* HERO */
+.page-hero{padding:110px 5vw 64px;position:relative;z-index:1;}
+.page-tag{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,255,.5);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.page-tag::before{content:'';width:14px;height:1px;background:rgba(0,200,255,.4);}
+.page-hero h1{font-size:clamp(2.8rem,7vw,6.5rem);font-weight:700;letter-spacing:-.03em;line-height:.93;margin-bottom:18px;opacity:0;animation:up .6s ease forwards .1s;}
+.page-hero h1 em{color:var(--blue);font-style:normal;}
+.page-hero p{font-size:1rem;color:var(--muted2);max-width:520px;line-height:1.78;font-weight:300;opacity:0;animation:up .6s ease forwards .22s;}
+
+/* FILTER TABS */
+.filter-bar{display:flex;gap:8px;padding:0 5vw;margin-bottom:48px;flex-wrap:wrap;position:relative;z-index:1;}
+.filter-btn{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--blue-line);background:transparent;padding:8px 18px;border-radius:999px;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{color:var(--blue);border-color:rgba(0,200,255,.35);background:rgba(0,200,255,.06);}
+
+/* FEATURED PROJECT */
+.featured-project{
+  margin:0 5vw 16px;
+  background:var(--card);
+  border:1px solid var(--blue-line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+  backdrop-filter:blur(16px);
+  transition:border-color .3s,transform .3s;
+  text-decoration:none;color:var(--text);
+  position:relative;z-index:1;
+}
+.featured-project:hover{border-color:rgba(0,200,255,.3);transform:translateY(-3px);box-shadow:0 16px 60px rgba(0,0,0,.4);}
+.feat-preview{
+  min-height:380px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.feat-preview-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s;}
+.featured-project:hover .feat-preview-inner{transform:scale(1.03);}
+.feat-badge{position:absolute;top:16px;left:16px;background:var(--blue);color:var(--bg);font-size:.55rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:4px;}
+.feat-body{padding:44px 40px;display:flex;flex-direction:column;justify-content:center;}
+.feat-category{font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,200,255,.5);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.feat-category::before{content:'';width:12px;height:1px;background:rgba(0,200,255,.4);}
+.feat-body h2{font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;line-height:1.1;}
+.feat-body p{font-size:.88rem;color:var(--muted2);line-height:1.78;margin-bottom:28px;font-weight:300;}
+.feat-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.feat-tag{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,200,255,.6);border:1px solid rgba(0,200,255,.15);padding:4px 10px;border-radius:4px;}
+.feat-link{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:6px;transition:gap .2s;}
+.featured-project:hover .feat-link{gap:10px;}
+
+/* PROJECT GRID */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 5vw;margin-bottom:16px;position:relative;z-index:1;}
+.project-card{
+  background:var(--card);border:1px solid var(--blue-line);border-radius:var(--radius);
+  overflow:hidden;text-decoration:none;color:var(--text);
+  display:flex;flex-direction:column;
+  transition:all .3s;backdrop-filter:blur(12px);
+}
+.project-card:hover{border-color:rgba(0,200,255,.28);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3);}
+.proj-preview{
+  height:200px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.proj-preview-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .4s;}
+.project-card:hover .proj-preview-inner{transform:scale(1.05);}
+.proj-body{padding:22px 20px;flex:1;display:flex;flex-direction:column;}
+.proj-cat{font-size:.56rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,255,.45);margin-bottom:8px;}
+.proj-body h3{font-size:1rem;font-weight:600;margin-bottom:8px;letter-spacing:-.01em;line-height:1.25;}
+.proj-body p{font-size:.8rem;color:var(--muted2);line-height:1.68;font-weight:300;flex:1;margin-bottom:16px;}
+.proj-link{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,200,255,.4);display:flex;align-items:center;gap:4px;transition:color .2s;}
+.project-card:hover .proj-link{color:var(--blue);}
+
+/* STATS BAND */
+.stats-band{
+  margin:48px 5vw;
+  background:var(--card);border:1px solid var(--blue-line);border-radius:var(--radius);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  backdrop-filter:blur(12px);
+  position:relative;z-index:1;
+}
+.band-stat{padding:32px 20px;text-align:center;border-right:1px solid var(--blue-line);}
+.band-stat:last-child{border-right:none;}
+.band-num{font-size:2.2rem;font-weight:700;color:var(--blue);display:block;line-height:1;margin-bottom:6px;letter-spacing:-.02em;}
+.band-label{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+/* TESTIMONIALS */
+.testi-sec{padding:80px 5vw;position:relative;z-index:1;}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.testi-card{
+  background:var(--card);border:1px solid var(--blue-line);border-radius:var(--radius);
+  padding:28px;backdrop-filter:blur(12px);transition:border-color .3s;
+}
+.testi-card:hover{border-color:rgba(0,200,255,.25);}
+.testi-text{font-size:.9rem;color:var(--muted2);line-height:1.78;font-weight:300;margin-bottom:18px;font-style:italic;}
+.testi-text strong{color:rgba(0,200,255,.7);font-style:normal;font-weight:500;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid rgba(0,200,255,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:var(--blue);}
+.testi-name{font-size:.82rem;font-weight:600;}
+.testi-role{font-size:.65rem;color:var(--muted);}
+
+/* CTA */
+.work-cta{
+  margin:0 5vw 80px;
+  background:linear-gradient(135deg,rgba(0,200,255,.08),rgba(0,80,140,.06));
+  border:1px solid rgba(0,200,255,.2);border-radius:var(--radius);
+  padding:60px 48px;text-align:center;
+  backdrop-filter:blur(16px);
+  position:relative;z-index:1;overflow:hidden;
+}
+.work-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:300px;background:radial-gradient(ellipse,rgba(0,200,255,.06),transparent 70%);pointer-events:none;}
+.work-cta h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:-.02em;line-height:.95;margin-bottom:14px;position:relative;}
+.work-cta h2 em{color:var(--blue);font-style:normal;}
+.work-cta p{font-size:.9rem;color:var(--muted2);max-width:340px;margin:0 auto 30px;line-height:1.75;font-weight:300;position:relative;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-solid{background:var(--blue);color:var(--bg);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:13px 28px;border-radius:8px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-solid:hover{box-shadow:0 0 30px rgba(0,200,255,.4);transform:translateY(-2px);}
+.btn-ghost{border:1px solid rgba(0,200,255,.22);color:var(--muted2);font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:13px 28px;border-radius:8px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-ghost:hover{border-color:rgba(0,200,255,.5);color:var(--text);}
+
+footer{padding:20px 5vw;border-top:1px solid var(--blue-line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:var(--bg2);}
+footer p{font-size:.56rem;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+.foot-links{display:flex;gap:18px;}
+.foot-links a{font-size:.56rem;font-weight:500;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.foot-links a:hover{color:var(--blue);}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){
+  .featured-project{grid-template-columns:1fr;}
+  .feat-preview{min-height:240px;}
+  .projects-grid{grid-template-columns:1fr;}
+  .stats-band{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr;}
+  .nav-back{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <a href="xavi3r-v3.html" class="nav-logo">X3R Labs</a>
+  <a href="xavi3r-v3.html" class="nav-back">← Back to Portfolio</a>
+  <a href="https://x.com/ThatzXavi3rr" target="_blank" class="nav-cta">Contact Me</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-tag">Proof of Work</div>
+  <h1>Built With<br><em>AI.</em> Built<br>to Convert.</h1>
+  <p>Landing pages, brand identities, and AI-powered creative for businesses that want to stand out. Every project below was built using AI tools, creative direction, and sharp strategy.</p>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar reveal">
+  <button class="filter-btn active">All Work</button>
+  <button class="filter-btn">Landing Pages</button>
+  <button class="filter-btn">Brand Identity</button>
+  <button class="filter-btn">AI Ads</button>
+</div>
+
+<!-- FEATURED — REAL ESTATE -->
+<a href="realestate.html" target="_blank" class="featured-project reveal">
+  <div class="feat-preview" style="background:linear-gradient(135deg,#0c0c0a,#1a1810);">
+    <div class="feat-preview-inner" style="flex-direction:column;gap:12px;align-items:center;">
+      <div style="font-family:'Georgia',serif;font-size:5rem;color:rgba(201,168,76,.15);letter-spacing:.1em;line-height:1;">VE</div>
+      <div style="font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);">Luxury Real Estate</div>
+    </div>
+    <div class="feat-badge">Featured</div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-category">Landing Page</div>
+    <h2>Vance Elliot — Luxury Real Estate</h2>
+    <p>A high-end property landing page built for a luxury real estate agent. Serif elegance meets dark editorial design — crafted to attract high-net-worth buyers instantly.</p>
+    <div class="feat-tags">
+      <span class="feat-tag">AI Copywriting</span>
+      <span class="feat-tag">Landing Page</span>
+      <span class="feat-tag">Real Estate</span>
+      <span class="feat-tag">Dark Luxury</span>
+    </div>
+    <div class="feat-link">View Live Page →</div>
+  </div>
+</a>
+
+<!-- PROJECT GRID -->
+<div class="projects-grid reveal" style="margin-top:16px;">
+
+  <!-- NFT DROP -->
+  <a href="nft-drop.html" target="_blank" class="project-card">
+    <div class="proj-preview" style="background:linear-gradient(135deg,#060008,#1a0030);">
+      <div class="proj-preview-inner" style="flex-direction:column;align-items:center;gap:8px;">
+        <div style="font-size:3rem;filter:hue-rotate(0deg);">👾</div>
+        <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,45,120,.4);">NFT DROP</div>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-cat">NFT · Web3</div>
+      <h3>VOIDWALKERS NFT Drop Page</h3>
+      <p>Full mint landing page for a 4,444-piece NFT collection. Live mint counter, rarity system display, roadmap, and wallet connect CTA — built to convert.</p>
+      <div class="proj-link">View Live Page →</div>
+    </div>
+  </a>
+
+  <!-- TATTOO -->
+  <a href="tattoo-studio.html" target="_blank" class="project-card">
+    <div class="proj-preview" style="background:linear-gradient(135deg,#0a0a09,#1a0808);">
+      <div class="proj-preview-inner" style="flex-direction:column;align-items:center;gap:8px;">
+        <div style="font-size:3rem;">🖤</div>
+        <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,52,10,.4);">TATTOO STUDIO</div>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-cat">Local Business</div>
+      <h3>INKFORM Tattoo Studio</h3>
+      <p>Brutalist editorial design for a premium Brooklyn tattoo studio. Artist profiles, style showcase, and built-in booking form — dark, raw, and unforgettable.</p>
+      <div class="proj-link">View Live Page →</div>
+    </div>
+  </a>
+
+  <!-- COMING SOON placeholder -->
+  <div class="project-card" style="opacity:.45;pointer-events:none;">
+    <div class="proj-preview" style="background:var(--bg3);">
+      <div class="proj-preview-inner" style="align-items:center;justify-content:center;">
+        <div style="font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);">Coming Soon</div>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-cat">AI Ads · Film</div>
+      <h3>AI Ad Campaign</h3>
+      <p>AI-generated video ads and social creatives for brand campaigns. Launching soon.</p>
+      <div class="proj-link">In Progress</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- STATS -->
+<div class="stats-band reveal">
+  <div class="band-stat"><span class="band-num">10+</span><span class="band-label">Projects Done</span></div>
+  <div class="band-stat"><span class="band-num">3</span><span class="band-label">Days Avg. Delivery</span></div>
+  <div class="band-stat"><span class="band-num">100%</span><span class="band-label">AI-Powered</span></div>
+  <div class="band-stat"><span class="band-num">∞</span><span class="band-label">Creativity</span></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testi-sec">
+  <div class="page-tag" style="margin-bottom:32px;">What Clients Say</div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <p class="testi-text">"Xavi3r delivered our landing page in 3 days. <strong>The conversions went up immediately</strong>. We didn't expect AI-built work to feel this premium."</p>
+      <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Marcus O.</div><div class="testi-role">Founder, DeFi Protocol</div></div></div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-text">"We needed a launch page fast. <strong>X3R Labs turned it around overnight</strong> — looked better than agencies that charged 5x more."</p>
+      <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Amara K.</div><div class="testi-role">NFT Project Lead</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="work-cta reveal">
+  <h2>Want One<br>Built for <em>You?</em></h2>
+  <p>Landing page, brand identity, or AI ad campaign — let's talk about what you need.</p>
+  <div class="cta-btns">
+    <a href="https://x.com/ThatzXavi3rr" target="_blank" class="btn-solid">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      DM on X
+    </a>
+    <a href="https://t.me/ThatzXavi3rr" target="_blank" class="btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Telegram
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Xavi3r · X3R Labs</p>
+  <div class="foot-links">
+    <a href="https://x.com/ThatzXavi3rr" target="_blank">X / Twitter</a>
+    <a href="https://t.me/ThatzXavi3rr" target="_blank">Telegram</a>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-3.5+'px';cur.style.top=my-3.5+'px';});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx-13+'px';curR.style.top=ry-13+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.style.transform='scale(2.5)');
+  el.addEventListener('mouseleave',()=>cur.style.transform='scale(1)');
+});
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('in');}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Filter buttons (UI only)
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
